@@ -14,7 +14,7 @@ class PrettyFilePicker(private val context: Activity) {
     }
 
     companion object {
-        val fileFromPrettyFilePickerAsString: MutableLiveData<String> = MutableLiveData()
-        val fileFromPrettyFilePickerAsFile: MutableLiveData<DocumentFile> = MutableLiveData()
+        @JvmStatic val fileFromPrettyFilePickerAsString: MutableLiveData<String> = MutableLiveData()
+        @JvmStatic val fileFromPrettyFilePickerAsFile: MutableLiveData<DocumentFile> = MutableLiveData()
     }
 }
