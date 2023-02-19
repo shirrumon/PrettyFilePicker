@@ -2,7 +2,9 @@ package com.picker.prettyfilepicker
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.os.Build
 import android.os.Environment
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,7 @@ class PrettyFilePicker(
     private lateinit var createdPickerInstance: AlertDialog
     var returnedData: MutableLiveData<Any> = MutableLiveData()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun runFilePicker(callback: (Any) -> Unit) {
         this.build()
 
@@ -28,6 +31,7 @@ class PrettyFilePicker(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun build() {
         val view = activity.layoutInflater.inflate(R.layout.alert_dialog_layout, null)
         val defaultPath =
@@ -36,9 +40,10 @@ class PrettyFilePicker(
         val adapter = PickerListAdapter(
             view,
             this,
-            returnAsDocumentFile
+            returnAsDocumentFile,
+            filters
         )
-        val adapterReDrawer = AdapterReDraw(adapter)
+        val adapterReDrawer = AdapterReDraw(adapter, filters)
 
         builder.setTitle(title)
 
