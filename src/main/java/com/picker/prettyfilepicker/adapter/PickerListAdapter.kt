@@ -5,22 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.picker.prettyfilepicker.PrettyFilePicker.Companion.fileFromPrettyFilePickerAsFile
-import com.picker.prettyfilepicker.PrettyFilePicker.Companion.fileFromPrettyFilePickerAsString
+import com.picker.prettyfilepicker.PrettyFilePicker
 import com.picker.prettyfilepicker.databinding.FileElementInListBinding
-import com.picker.prettyfilepicker.factory.DialogFactory
 import com.picker.prettyfilepicker.models.FileModel
-import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 
 class PickerListAdapter(
     private val view: View,
-    private val dialogFactory: DialogFactory
+    private val prettyFilePicker: PrettyFilePicker,
+    private val returnAsDocumentFile: Boolean
 ) :
     ListAdapter<FileModel, PickerListAdapter.MainViewHolder>(ItemComparator()) {
     private val reDrawer = AdapterReDraw(this)
@@ -65,9 +62,8 @@ class PickerListAdapter(
         holder.bind(item)
         holder.itemView.setOnClickListener {
             if(!Files.isDirectory(Paths.get(item.filePath))) {
-                fileFromPrettyFilePickerAsString.value = item.filePath
-                fileFromPrettyFilePickerAsFile.value = DocumentFile.fromFile(File(item.filePath))
-                dialogFactory.destroy()
+                prettyFilePicker.destroy()
+                prettyFilePicker.returnedData.value = item.filePath
             } else {
                 reDrawer.openFolder(item.filePath, view)
             }
