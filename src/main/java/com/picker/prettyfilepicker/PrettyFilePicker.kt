@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.os.Environment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.picker.prettyfilepicker.adapter.AdapterReDraw
