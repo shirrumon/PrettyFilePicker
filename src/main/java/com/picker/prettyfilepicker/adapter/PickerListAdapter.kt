@@ -74,5 +74,16 @@ class PickerListAdapter(
                 reDrawer.openFolder(item.filePath, view)
             }
         }
+
+        holder.itemView.setOnLongClickListener {
+            if(Files.isDirectory(Paths.get(item.filePath))) {
+                prettyFilePicker.destroy()
+                prettyFilePicker.returnedData.value = if (!returnAsDocumentFile)
+                    item.filePath
+                else
+                    DocumentFile.fromFile(File(item.filePath))
+            }
+            true
+        }
     }
 }
